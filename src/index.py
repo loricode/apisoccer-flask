@@ -23,5 +23,22 @@ def index():
     cur.close()
     return jsonify(rows)
 
+
+@app.route('/api', methods=['POST'])
+def saveTeam():
+	conn = conexion()
+	cur = conn.cursor()
+	data = request.json
+	sql = """INSERT INTO teamfootball (name, trophy, image ) 
+             VALUES (%(name)s, %(trophy)s, %(image)s)"""
+	cur.execute(sql, data) 
+	conn.commit() 
+	conn.close()
+	cur.close()       
+	return jsonify(msg='added successfully!') 
+	
+	
+    	
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
