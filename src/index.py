@@ -37,8 +37,25 @@ def saveTeam():
 	cur.close()       
 	return jsonify(msg='added successfully!') 
 	
-	
+@app.route('/api/<id>', methods=['DELETE'])
+def deleteTeam(id):
+    conn = conexion()
+    cur = conn.cursor()
+    sql = "DELETE FROM teamfootball WHERE id = %s"
+    cur.execute(sql, id) 
+    conn.commit()
+    conn.close()
+    cur.close()
+    return jsonify(msg="team eliminated") 
+
     	
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+#cd desktop
+#mkdir apisoccer
+#python3 -m venv venv
+#activar entorno virtual
+#venv\Scripts\activate
+
